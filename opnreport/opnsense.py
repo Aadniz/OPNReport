@@ -3,7 +3,7 @@ import re
 from datetime import datetime, timezone
 from pprint import pformat
 
-from util import DataNode, hasattr_r
+from .util import DataNode, hasattr_r
 
 
 class OpnSenseNode(DataNode):

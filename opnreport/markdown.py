@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-from opnsense import OpnSenseNode, OpnSenseRuleAlias, OpnSenseRuleInterface, OpnSenseRuleLocation
-from util import dict_to_list, obj_to_dict, obj_to_list, hasattr_r
+from .opnsense import OpnSenseNode, OpnSenseRuleAlias, OpnSenseRuleInterface, OpnSenseRuleLocation
+from .util import dict_to_list, obj_to_dict, obj_to_list, hasattr_r
 
 
 def format_rule_interface(rule_interface):

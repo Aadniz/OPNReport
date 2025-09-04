@@ -7,8 +7,8 @@ from xml.sax import ContentHandler
 
 from defusedxml.sax import parse
 
-from opnsense import OpnSenseDocument
-from util import DataList
+from .opnsense import OpnSenseDocument
+from .util import DataList
 
 
 class OpnSenseContentHandler(ContentHandler):
