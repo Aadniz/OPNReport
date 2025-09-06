@@ -4,11 +4,11 @@ import sys
 
 import yaml
 
-from .markdown import output_markdown
-from .bbcode import output_bbcode
-from .parse import parse_opnsense
-from .opnsense import OpnSenseDocument
-from .progress import Animation
+from opnreport.markdown import output_markdown
+from opnreport.bbcode import output_bbcode
+from opnreport.parse import parse_opnsense
+from opnreport.opnsense import OpnSenseDocument
+from opnreport.progress import Animation
 
 
 def output_yaml(doc, stream):

@@ -3,7 +3,7 @@ import re
 from datetime import datetime, timezone
 from pprint import pformat
 
-from .util import DataNode, hasattr_r
+from opnreport.util import DataNode, hasattr_r
 
 
 class OpnSenseNode(DataNode):
@@ -12,6 +12,7 @@ class OpnSenseNode(DataNode):
 
     def __getattr__(self, name):
         # This trick hides PyLint error messages...
+        # print("Getting attribute", name)
         return super().__getattribute__(name)
 
     def __call__(self, content):
@@ -71,6 +72,9 @@ class OpnSenseInterfacesNode(OpnSenseNode):
         return super().__getattribute__(name)
 
 class OpnSenseFlag(OpnSenseNode):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.value = 0  # Initialize with default value
     def __call__(self, content):
         self.value = int(content)
     @property
