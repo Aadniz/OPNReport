@@ -206,6 +206,77 @@ class OpnSenseFilterRule(OpnSenseNode):
 class OpnSenseFilter(OpnSenseNode):
     _rule = [OpnSenseFilterRule]
 
+class OpnSenseUnboundGeneralSettings(OpnSenseNode):
+    _enabled = OpnSenseFlag
+    _port = OpnSensePortString
+    _stats = OpnSenseInteger
+    _active_interface = OpnSenseString
+    _dnssec = OpnSenseFlag
+    _dns64 = OpnSenseFlag
+    _noarecords = OpnSenseFlag
+    _regdhcp = OpnSenseFlag
+    _regdhcpstatic = OpnSenseFlag
+    _noreglladdr6 = OpnSenseFlag
+    _noregrecords = OpnSenseFlag
+    _txtsupport = OpnSenseFlag
+    _cacheflush = OpnSenseFlag
+    _local_zone_type = OpnSenseString
+    _enable_wpad = OpnSenseFlag
+
+class OpnSenseUnboundPlusAcl(OpnSenseNode):
+    _enabled = OpnSenseFlag
+    _name = OpnSenseString
+    _action = OpnSenseString
+    _networks = OpnSenseString
+    _description = OpnSenseString
+
+class OpnSenseUnboundPlusAcls(OpnSenseNode):
+    _acl = [OpnSenseUnboundPlusAcl]
+
+class OpnSenseUnboundPlusDot(OpnSenseNode):
+    _enabled = OpnSenseFlag
+    _type = OpnSenseString
+    _domain = OpnSenseString
+    _server = OpnSenseString
+    _port = OpnSensePortString
+    _forward_tcp_upstream = OpnSenseFlag
+    _forward_first = OpnSenseFlag
+    _description = OpnSenseString
+
+class OpnSenseUnboundPlusDots(OpnSenseNode):
+    _dot = [OpnSenseUnboundPlusDot]
+
+class OpnSenseUnboundPlusHost(OpnSenseNode):
+    _enabled = OpnSenseFlag
+    _hostname = OpnSenseString
+    _domain = OpnSenseString
+    _rr = OpnSenseString
+    _mxprio = OpnSenseString  # Don't know what type, using OpnSenseString as a guess
+    _mx = OpnSenseString  # Don't know what type, using OpnSenseString as a guess
+    _ttl = OpnSenseString  # Don't know what type, using OpnSenseString as a guess
+    _server = OpnSenseString
+    _description = OpnSenseString
+
+class OpnSenseUnboundPlusHosts(OpnSenseNode):
+    _host = [OpnSenseUnboundPlusHost]
+
+class OpnSenseUnboundPlusAlias(OpnSenseNode):
+    _enabled = OpnSenseFlag
+    _host = OpnSenseString
+    _hostname = OpnSenseString
+    _domain = OpnSenseString
+    _description = OpnSenseString
+
+class OpnSenseUnboundPlusAliases(OpnSenseNode):
+    _alias = [OpnSenseUnboundPlusAlias]
+
+class OpnSenseUnboundPlus(OpnSenseNode):
+    _general = OpnSenseUnboundGeneralSettings
+    _acls = OpnSenseUnboundPlusAcls
+    _dots = OpnSenseUnboundPlusDots
+    _hosts = OpnSenseUnboundPlusHosts
+    _aliases = OpnSenseUnboundPlusAliases
+
 class OpnSenseNatOutboundRule(OpnSenseNode):
     _interface = OpnSenseRuleInterface
     _source = OpnSenseRuleLocation
@@ -259,6 +330,7 @@ class OpnSenseFirewall(OpnSenseNode):
     _Alias = OpnSenseFirewallAlias
 
 class OpnSenseOPNsense(OpnSenseNode):
+    _unboundplus = OpnSenseUnboundPlus
     _Firewall = OpnSenseFirewall
 
 class OpnSenseDnsMasqDomainOverride(OpnSenseNode):
@@ -406,6 +478,41 @@ class OpnSenseSyslog(OpnSenseNode):
     _logall = OpnSenseFlag
     _enable = OpnSenseFlag
 
+class OpnSenseLagg(OpnSenseNode):
+    _laggif = OpnSenseString
+    _members = OpnSenseString
+    _primary_member = OpnSenseString  # Don't know what type this is, using OpnSenseString as a guess
+    _proto = OpnSenseString
+    _lacp_fast_timeout = OpnSenseInteger
+    _use_flowid = OpnSenseFlag
+    _lagghash = OpnSenseString
+    _lacp_strict = OpnSenseFlag
+    _mtu = OpnSenseInteger
+    _descr = OpnSenseString
+
+class OpnSenseLaggs(OpnSenseNode):
+    _lagg = [OpnSenseLagg]
+
+class OpnSenseVirtualIp(OpnSenseNode):
+    _interface = OpnSenseRuleInterface
+    _mode = OpnSenseString
+    _subnet = OpnSenseString
+    _subnet_bits = OpnSenseInteger
+    _gateway = OpnSenseString
+    _noexpand = OpnSenseFlag
+    _nobind = OpnSenseFlag
+    # _password = OpnSenseString  # Let's not show this
+    _vhid = OpnSenseInteger
+    _advbase = OpnSenseFlag
+    _advskew = OpnSenseFlag
+    _peer = OpnSenseString  # Don't know the type, using OpnSenseString as a guess
+    _peer6 = OpnSenseString  # Don't know the type, using OpnSenseString as a guess
+    _nosync = OpnSenseFlag
+    _descr = OpnSenseString
+
+class OpnSenseVirtualIps(OpnSenseNode):
+    _vip = [OpnSenseVirtualIp]
+
 class OpnSenseSystem(OpnSenseNode):
     _optimization = OpnSenseString
     _hostname = OpnSenseString
@@ -428,6 +535,8 @@ class OpnSenseConfig(OpnSenseNode):
     _filter = OpnSenseFilter
     _dnsmasq = OpnSenseDnsMasq
     _dhcpd = OpnSenseDhcpd
+    _virtualip = OpnSenseVirtualIps
+    _laggs = OpnSenseLaggs
     _openvpn = OpnSenseOpenVpn
     _syslog = OpnSenseSyslog
     _sysctl = OpnSenseSysCtl

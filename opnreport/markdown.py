@@ -161,6 +161,39 @@ def output_markdown(doc, stream):
         output_markdown_table(stream, ('Disabled', 'Interface', 'Type', 'IP', 'Direction', 'Protocol', 'Source', 'Destination', 'Description'), rules)
         stream.write("\n")
 
+    if hasattr_r(doc.opnsense, 'laggs.lagg'):
+        stream.write("## LAGG interfaces\n")
+        laggs = [obj_to_list(lagg, ('laggif', 'members', 'proto', 'lacp_fast_timeout', 'mtu', 'descr')) for lagg in doc.opnsense.laggs.lagg]
+        output_markdown_table(stream,('LAGG interface', 'Members', 'Proto', 'LACP Fast Timeout', 'MTU', 'Description'), laggs)
+        stream.write("\n")
+
+    if hasattr_r(doc.opnsense, 'OPNsense.unboundplus'):
+        stream.write("## Unbound Plus\n")
+        if hasattr_r(doc.opnsense.OPNsense.unboundplus, 'general'):
+            stream.write("### Settings\n")
+            settings = obj_to_dict(doc.opnsense.OPNsense.unboundplus.general, ('enabled', 'port', 'active_interface', 'dnssec'))
+            output_markdown_table(stream, ('Option', 'Value'), settings.items())
+
+        if hasattr_r(doc.opnsense.OPNsense.unboundplus, 'dots.dot'):
+            stream.write("### Dots\n")
+            dots = [obj_to_list(dot, ('enabled', 'type', 'domain', 'server', 'port', 'forward_tcp_upstream', 'forward_first', 'description')) for dot in doc.opnsense.OPNsense.unboundplus.dots.dot]
+            output_markdown_table(stream, ('Enabled', 'Type', 'Domain', 'Server', 'Port', 'Forward TCP Upstream', 'Forward First', 'Description'), dots)
+
+        if hasattr_r(doc.opnsense.OPNsense.unboundplus, 'hosts.host'):
+            stream.write("### Hosts\n")
+            hosts = [obj_to_list(host, ('enabled', 'hostname', 'domain', 'rr', 'server', 'description')) for host in doc.opnsense.OPNsense.unboundplus.hosts.host]
+            output_markdown_table(stream, ('Enabled', 'Hostname', 'Domain', 'RR', 'Server', 'Description'), hosts)
+
+        if hasattr_r(doc.opnsense.OPNsense.unboundplus, 'aliases.alias'):
+            stream.write("### Aliases\n")
+            aliases = [obj_to_list(alias, ('enabled', 'host', 'hostname', 'domain', 'description')) for alias in doc.opnsense.OPNsense.unboundplus.aliases.alias]
+            output_markdown_table(stream, ('Enabled', 'Host', 'Hostname', 'Domain', 'Description'), aliases)
+
+    if hasattr_r(doc.opnsense, 'virtualip.vip'):
+        stream.write("## Virtual IPs\n")
+        vips = [obj_to_list(vip, ('interface', 'mode', 'subnet', 'subnet_bits', 'gateway', 'noexpand', 'nobind', 'vhid', 'advbase', 'advskew', 'nosync', 'descr')) for vip in doc.opnsense.virtualip.vip]
+        output_markdown_table(stream, ('Interface', 'Mode', 'Subnet', 'Subnet Bits', 'Gateway', 'No Expand', 'No Bind', 'VHID', 'ADV Base', 'ADV Skew', 'No Sync', 'Description'), vips)
+
     if hasattr_r(doc.opnsense, 'dnsmasq'):
         stream.write("## DNSmasq configuration\n")
         dnsmasq = obj_to_dict(doc.opnsense.dnsmasq, ('enable', 'regdhcp', 'regdhcpstatic', 'strict_order', 'custom_options', 'interface'))

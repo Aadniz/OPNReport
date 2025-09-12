@@ -32,6 +32,9 @@ OPNReport currently supports the following configuration sections:
 * Outbound NAT rules with alias and interface resolution
 * Filter rules with alias and interface resolution
 * DNS forwarder (DNSmasq) configuration
+* Virtual IPs configuration
+* LAGG interfaces
+* Unbound Plus configuration
 * OpenVPN server and client configurations
 * Syslog and sysctl configuration
 
