@@ -184,6 +184,7 @@ class OpnSenseFilterRule(OpnSenseNode):
     _type = OpnSenseString
     _interface = OpnSenseRuleInterface
     _ipprotocol = OpnSenseString
+    _direction = OpnSenseString
     _tag = OpnSenseString
     _tagged = OpnSenseString
     _max = OpnSenseString

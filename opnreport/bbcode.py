@@ -186,8 +186,8 @@ def output_bbcode(doc, stream):
 
     if hasattr_r(doc.opnsense, 'filter.rule'):
         stream.write(h2("Filter rules\n"))
-        rules = [obj_to_list(rule, ('disabled', 'interface', 'type', 'ipprotocol', 'protocol', 'source', 'destination', 'descr')) for rule in doc.opnsense.filter.rule]
-        output_bbcode_table(stream, ('Disabled', 'Interface', 'Type', 'IP', 'Protocol', 'Source', 'Destination', 'Description'), rules)
+        rules = [obj_to_list(rule, ('disabled', 'interface', 'type', 'ipprotocol', 'direction', 'protocol', 'source', 'destination', 'descr')) for rule in doc.opnsense.filter.rule]
+        output_bbcode_table(stream, ('Disabled', 'Interface', 'Type', 'IP', 'Direction', 'Protocol', 'Source', 'Destination', 'Description'), rules)
         stream.write("\n")
 
     if hasattr_r(doc.opnsense, 'dnsmasq'):
